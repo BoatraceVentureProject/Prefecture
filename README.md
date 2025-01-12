@@ -1,6 +1,6 @@
 # Prefecture in the Boatrace Venture Project
 
-[![Build Status](https://github.com/BoatraceVentureProject/Prefecture/workflows/tests/badge.svg)](https://github.com/BoatraceVentureProject/Prefecture/actions?query=workflow%3Atests)
+[![Build Status](https://github.com/BoatraceVentureProject/Prefecture/workflows/Tests/badge.svg)](https://github.com/BoatraceVentureProject/Prefecture/actions?query=workflow%3Atests)
 [![codecov](https://codecov.io/gh/BoatraceVentureProject/Prefecture/graph/badge.svg?token=COKGMRB92M)](https://codecov.io/gh/BoatraceVentureProject/Prefecture)
 [![Latest Stable Version](https://poser.pugx.org/bvp/prefecture/v/stable)](https://packagist.org/packages/bvp/prefecture)
 [![Latest Unstable Version](https://poser.pugx.org/bvp/prefecture/v/unstable)](https://packagist.org/packages/bvp/prefecture)
