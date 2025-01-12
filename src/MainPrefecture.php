@@ -44,7 +44,9 @@ class MainPrefecture
             return null;
         }
 
-        $this->prefectures ??= collect(require __DIR__ . '/../config/prefectures.php')->recursive();
+        $this->prefectures ??= collect(
+            require __DIR__ . '/../config/prefectures.php'
+        )->recursive();
 
         $prefectures = $this->prefectures->keyBy(Str::snake($matches[1]));
         if ($prefectures->has($arguments[0])) {
