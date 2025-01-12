@@ -51,7 +51,7 @@ class MainPrefecture
             return $prefectures->get($arguments[0]);
         }
 
-        return $prefectures->filter(fn($item, $key) =>
+        return $prefectures->filter(fn($value, $key) =>
             Str::contains($key, $arguments[0])
         )->last();
     }
