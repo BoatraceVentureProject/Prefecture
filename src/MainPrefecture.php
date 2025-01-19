@@ -48,7 +48,17 @@ class MainPrefecture
             require __DIR__ . '/../config/prefectures.php'
         )->recursive();
 
-        $prefectures = $this->prefectures->keyBy(Str::snake($matches[1]));
+        return $this->by($matches[1], $arguments);
+    }
+
+    /**
+     * @param  string  $name
+     * @param  array   $arguments
+     * @return \Illuminate\Support\Collection|null
+     */
+    protected function by(string $name, array $arguments): ?Collection
+    {
+        $prefectures = $this->prefectures->keyBy(Str::snake($name));
         if ($prefectures->has($arguments[0])) {
             return $prefectures->get($arguments[0]);
         }
