@@ -67,4 +67,29 @@ class MainPrefecture
             Str::contains($key, $arguments[0])
         )->last();
     }
+
+    /**
+     * @param  string  $name
+     * @param  array   $arguments
+     * @return \Illuminate\Support\Collection|null
+     */
+    protected function allBy(string $name, array $arguments): ?Collection
+    {
+        $prefectures = $this->prefectures->keyBy(Str::snake($name));
+
+        $exactMatchedPrefectures = $prefectures->only(...$arguments);
+        if ($exactMatchedPrefectures->isNotEmpty()) {
+            return $exactMatchedPrefectures;
+        }
+
+        $argumentCollection = collect($arguments);
+        $partialMatchedPrefectures = $prefectures->filter(fn($value, $key) =>
+            $argumentCollection->filter(fn($argument) => Str::contains($key, $argument))->isNotEmpty()
+        );
+        if ($partialMatchedPrefectures->isNotEmpty()) {
+            return $partialMatchedPrefectures;
+        }
+
+        return null;
+    }
 }
