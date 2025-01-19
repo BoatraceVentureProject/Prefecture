@@ -36,10 +36,6 @@ class MainPrefecture
      */
     public function __call(string $name, array $arguments): ?Collection
     {
-        if (! preg_match('/^by(.+)$/u', $name, $matches)) {
-            return null;
-        }
-
         if (! count($arguments)) {
             return null;
         }
@@ -48,7 +44,11 @@ class MainPrefecture
             require __DIR__ . '/../config/prefectures.php'
         )->recursive();
 
-        return $this->by($matches[1], $arguments);
+        if (preg_match('/^by(.+)$/u', $name, $matches)) {
+            return $this->by($matches[1], $arguments);
+        }
+
+        return null;
     }
 
     /**
