@@ -48,6 +48,10 @@ class MainPrefecture
             return $this->by($matches[1], $arguments);
         }
 
+        if (preg_match('/^allBy(.+)$/u', $name, $matches)) {
+            return $this->allBy($matches[1], $arguments);
+        }
+
         return null;
     }
 
