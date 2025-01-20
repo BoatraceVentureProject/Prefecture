@@ -18,19 +18,12 @@ class MainPrefectureTest extends BaseTestCase
     protected MainPrefecture $prefecture;
 
     /**
-     * @var \Illuminate\Support\Collection
-     */
-    protected Collection $collection;
-
-    /**
      * @return void
      */
     public function setUp(): void
     {
         parent::setUp();
         $this->prefecture ??= new MainPrefecture;
-
-        $this->collection ??= collect(require __DIR__ . '/../config/prefectures.php');
     }
 
     /**
@@ -46,11 +39,18 @@ class MainPrefectureTest extends BaseTestCase
      */
     public function testById(): void
     {
-        foreach ($this->collection->pluck('id') as $index => $prefectureId) {
-            $this->assertTrue($this->prefecture->byId($prefectureId)->diff(
-                $this->collection->get($index)
-            )->isEmpty());
-        }
+        $this->assertPrefecture(
+            $this->prefecturesDTO->get(13),
+            $this->prefecture->byId(13)
+        );
+
+        $this->assertPrefecture(
+            $this->prefecturesDTO->get(13),
+            $this->prefecture->byId(13, 34)
+        );
+
+        $this->assertNull($this->prefecture->byId());
+        $this->assertNull($this->prefecture->byId(48));
     }
 
     /**
@@ -58,11 +58,23 @@ class MainPrefectureTest extends BaseTestCase
      */
     public function testByName(): void
     {
-        foreach ($this->collection->pluck('name') as $index => $prefectureName) {
-            $this->assertTrue($this->prefecture->byName($prefectureName)->diff(
-                $this->collection->get($index)
-            )->isEmpty());
-        }
+        $this->assertPrefecture(
+            $this->prefecturesDTO->get(13),
+            $this->prefecture->byName('東京都')
+        );
+
+        $this->assertPrefecture(
+            $this->prefecturesDTO->get(13),
+            $this->prefecture->byName('東京')
+        );
+
+        $this->assertPrefecture(
+            $this->prefecturesDTO->get(13),
+            $this->prefecture->byName('東')
+        );
+
+        $this->assertNull($this->prefecture->byName());
+        $this->assertNull($this->prefecture->byName('都道府県'));
     }
 
     /**
@@ -70,11 +82,19 @@ class MainPrefectureTest extends BaseTestCase
      */
     public function testByShortName(): void
     {
-        foreach ($this->collection->pluck('short_name') as $index => $prefectureShortName) {
-            $this->assertTrue($this->prefecture->byShortName($prefectureShortName)->diff(
-                $this->collection->get($index)
-            )->isEmpty());
-        }
+        $this->assertPrefecture(
+            $this->prefecturesDTO->get(13),
+            $this->prefecture->byShortName('東京')
+        );
+
+        $this->assertPrefecture(
+            $this->prefecturesDTO->get(13),
+            $this->prefecture->byShortName('東')
+        );
+
+        $this->assertNull($this->prefecture->byShortName());
+        $this->assertNull($this->prefecture->byShortName('東京都'));
+        $this->assertNull($this->prefecture->byShortName('都道府県'));
     }
 
     /**
@@ -82,11 +102,23 @@ class MainPrefectureTest extends BaseTestCase
      */
     public function testByHiraganaName(): void
     {
-        foreach ($this->collection->pluck('hiragana_name') as $index => $prefectureHiraganaName) {
-            $this->assertTrue($this->prefecture->byHiraganaName($prefectureHiraganaName)->diff(
-                $this->collection->get($index)
-            )->isEmpty());
-        }
+        $this->assertPrefecture(
+            $this->prefecturesDTO->get(13),
+            $this->prefecture->byHiraganaName('とうきょうと')
+        );
+
+        $this->assertPrefecture(
+            $this->prefecturesDTO->get(13),
+            $this->prefecture->byHiraganaName('とうきょう')
+        );
+
+        $this->assertPrefecture(
+            $this->prefecturesDTO->get(13),
+            $this->prefecture->byHiraganaName('とう')
+        );
+
+        $this->assertNull($this->prefecture->byHiraganaName());
+        $this->assertNull($this->prefecture->byHiraganaName('とどうふけん'));
     }
 
     /**
@@ -94,11 +126,23 @@ class MainPrefectureTest extends BaseTestCase
      */
     public function testByKatakanaName(): void
     {
-        foreach ($this->collection->pluck('katakana_name') as $index => $prefectureKatakanaName) {
-            $this->assertTrue($this->prefecture->byKatakanaName($prefectureKatakanaName)->diff(
-                $this->collection->get($index)
-            )->isEmpty());
-        }
+        $this->assertPrefecture(
+            $this->prefecturesDTO->get(13),
+            $this->prefecture->byKatakanaName('トウキョウト')
+        );
+
+        $this->assertPrefecture(
+            $this->prefecturesDTO->get(13),
+            $this->prefecture->byKatakanaName('トウキョウ')
+        );
+
+        $this->assertPrefecture(
+            $this->prefecturesDTO->get(13),
+            $this->prefecture->byKatakanaName('トウ')
+        );
+
+        $this->assertNull($this->prefecture->byKatakanaName());
+        $this->assertNull($this->prefecture->byKatakanaName('トドウフケン'));
     }
 
     /**
@@ -106,11 +150,13 @@ class MainPrefectureTest extends BaseTestCase
      */
     public function testByEnglishName(): void
     {
-        foreach ($this->collection->pluck('english_name') as $index => $prefectureEnglishName) {
-            $this->assertTrue($this->prefecture->byEnglishName($prefectureEnglishName)->diff(
-                $this->collection->get($index)
-            )->isEmpty());
-        }
+        $this->assertPrefecture(
+            $this->prefecturesDTO->get(13),
+            $this->prefecture->byEnglishName('tokyo')
+        );
+
+        $this->assertNull($this->prefecture->byEnglishName());
+        $this->assertNull($this->prefecture->byEnglishName('prefecture'));
     }
 
     /**
