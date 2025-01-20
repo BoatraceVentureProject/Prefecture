@@ -75,6 +75,16 @@ class MainPrefecture
     /**
      * @param  string  $name
      * @param  array   $arguments
+     * @return \Illuminate\Support\Collection
+     */
+    protected function all(string $name, array $arguments): Collection
+    {
+        return $this->prefectures->mapWithKeys(fn($value, $key) => [$key + 1 => $value]);
+    }
+
+    /**
+     * @param  string  $name
+     * @param  array   $arguments
      * @return \Illuminate\Support\Collection|null
      */
     protected function allBy(string $name, array $arguments): ?Collection
