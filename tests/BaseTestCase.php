@@ -52,7 +52,7 @@ class BaseTestCase extends PHPUnitTestCase
      * @param  string|int                                                                        $keyName
      * @return void
      */
-    protected function assertPrefecture(PrefectureDTO $prefecture, Collection $collection, string|int $keyName): void
+    protected function assertPrefectureByKeyName(PrefectureDTO $prefecture, Collection $collection, string|int $keyName): void
     {
         $this->assertSame($prefecture->id, $collection->get($keyName)->get('id'));
         $this->assertSame($prefecture->name, $collection->get($keyName)->get('name'));
