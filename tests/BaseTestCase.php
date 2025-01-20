@@ -49,6 +49,21 @@ class BaseTestCase extends PHPUnitTestCase
     /**
      * @param  \Boatrace\Venture\Project\Tests\DataTransferObjects\PrefectureDataTransferObject  $prefecture
      * @param  \Illuminate\Support\Collection                                                    $collection
+     * @return void
+     */
+    protected function assertPrefecture(PrefectureDTO $prefecture, Collection $collection): void
+    {
+        $this->assertSame($prefecture->id, $collection->get('id'));
+        $this->assertSame($prefecture->name, $collection->get('name'));
+        $this->assertSame($prefecture->shortName, $collection->get('short_name'));
+        $this->assertSame($prefecture->hiraganaName, $collection->get('hiragana_name'));
+        $this->assertSame($prefecture->katakanaName, $collection->get('katakana_name'));
+        $this->assertSame($prefecture->englishName, $collection->get('english_name'));
+    }
+
+    /**
+     * @param  \Boatrace\Venture\Project\Tests\DataTransferObjects\PrefectureDataTransferObject  $prefecture
+     * @param  \Illuminate\Support\Collection                                                    $collection
      * @param  string|int                                                                        $keyName
      * @return void
      */
